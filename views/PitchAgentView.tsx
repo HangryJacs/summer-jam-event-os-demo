@@ -51,12 +51,20 @@ export const PitchAgentView = () => {
   const [progressStep, setProgressStep] = useState(0);
   const [isHistoryCollapsed, setIsHistoryCollapsed] = useState(true);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const hasInitialized = useRef(false);
 
   // Simulated conversation flow
   useEffect(() => {
+    if (hasInitialized.current) return;
+    hasInitialized.current = true;
+
+    let cancelled = false;
+    const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
     const flow = async () => {
       // Step 1: AI Research
-      await new Promise(r => setTimeout(r, 1000));
+      await wait(1000);
+      if (cancelled) return;
       setMessages(prev => [...prev, {
         id: '2',
         role: 'ai',
@@ -86,7 +94,8 @@ export const PitchAgentView = () => {
       }]);
 
       // Step 2: User Response
-      await new Promise(r => setTimeout(r, 2500));
+      await wait(2500);
+      if (cancelled) return;
       setMessages(prev => [...prev, {
         id: '3',
         role: 'user',
@@ -95,7 +104,8 @@ export const PitchAgentView = () => {
       }]);
 
       // Step 3: AI Concepts
-      await new Promise(r => setTimeout(r, 1500));
+      await wait(1500);
+      if (cancelled) return;
       setMessages(prev => [...prev, {
         id: '4',
         role: 'ai',
@@ -136,7 +146,8 @@ export const PitchAgentView = () => {
       }]);
 
       // Step 4: User Selection
-      await new Promise(r => setTimeout(r, 3000));
+      await wait(3000);
+      if (cancelled) return;
       setMessages(prev => [...prev, {
         id: '5',
         role: 'user',
@@ -145,7 +156,8 @@ export const PitchAgentView = () => {
       }]);
 
       // Step 5: Generation
-      await new Promise(r => setTimeout(r, 1000));
+      await wait(1000);
+      if (cancelled) return;
       setIsGenerating(true);
       
       const steps = [
@@ -157,10 +169,12 @@ export const PitchAgentView = () => {
       ];
 
       for (let i = 0; i <= steps.length; i++) {
+        if (cancelled) return;
         setProgressStep(i);
-        await new Promise(r => setTimeout(r, 800));
+        await wait(800);
       }
 
+      if (cancelled) return;
       setMessages(prev => [...prev, {
         id: '6',
         role: 'ai',
@@ -196,10 +210,17 @@ export const PitchAgentView = () => {
         ),
         timestamp: new Date()
       }]);
-      setIsGenerating(false);
+
+      if (!cancelled) {
+        setIsGenerating(false);
+      }
     };
 
     flow();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
