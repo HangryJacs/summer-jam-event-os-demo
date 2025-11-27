@@ -51,13 +51,9 @@ export const PitchAgentView = () => {
   const [progressStep, setProgressStep] = useState(0);
   const [isHistoryCollapsed, setIsHistoryCollapsed] = useState(true);
   const chatEndRef = useRef<HTMLDivElement>(null);
-  const hasInitialized = useRef(false);
 
   // Simulated conversation flow
   useEffect(() => {
-    if (hasInitialized.current) return;
-    hasInitialized.current = true;
-
     let cancelled = false;
     const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
