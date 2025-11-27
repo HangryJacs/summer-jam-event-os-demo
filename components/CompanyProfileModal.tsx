@@ -80,12 +80,12 @@ export const CompanyProfileModal: React.FC<CompanyProfileModalProps> = ({ sponso
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-neutral-800 px-6 bg-neutral-900/30">
+        <div className="flex border-b border-neutral-800 px-6 bg-neutral-900/30 overflow-x-auto no-scrollbar">
           {['Overview', 'Presentations', 'Deal Calculator'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab as any)}
-              className={`px-6 py-4 text-sm font-bold uppercase tracking-wide relative transition-colors ${
+              className={`px-6 py-4 text-sm font-bold uppercase tracking-wide relative transition-colors whitespace-nowrap ${
                 activeTab === tab ? 'text-[#FFD700]' : 'text-neutral-500 hover:text-white'
               }`}
             >

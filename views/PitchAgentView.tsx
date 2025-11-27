@@ -659,7 +659,7 @@ export const PitchAgentView = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="flex flex-col h-[calc(100vh-120px)] lg:h-[calc(100vh-140px)] space-y-6"
+      className="flex flex-col h-[calc(100vh-180px)] lg:h-[calc(100vh-140px)] space-y-6"
     >
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">

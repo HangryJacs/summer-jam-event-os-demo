@@ -142,7 +142,7 @@ export const DashboardView: React.FC<{ hoveredBarIndex: any, setHoveredBarIndex:
         className="grid grid-cols-1 lg:grid-cols-3 gap-6"
       >
         {/* Revenue Chart */}
-        <motion.div variants={itemVariants} className="lg:col-span-2 bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+        <motion.div variants={itemVariants} className="lg:col-span-2 bg-neutral-900/50 border border-neutral-800 rounded-xl p-4 lg:p-6">
           <div className="flex items-center justify-between mb-8">
             <div>
               <h3 className="text-xl font-bold text-white italic tracking-wide uppercase">Revenue Trend</h3>
@@ -211,7 +211,7 @@ export const DashboardView: React.FC<{ hoveredBarIndex: any, setHoveredBarIndex:
         </motion.div>
 
         {/* Recent Activity Feed */}
-        <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6">
+        <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-4 lg:p-6">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-xl font-bold text-white italic tracking-wide uppercase">Live Feed</h3>
             <Activity size={20} className="text-[#FFD700]" />

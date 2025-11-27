@@ -128,7 +128,7 @@ export const AnalyticsView: React.FC<{ sponsors: Sponsor[] }> = ({ sponsors }) =
       >
         
         {/* Responses Over Time */}
-        <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 p-6 rounded-xl">
+        <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 p-4 lg:p-6 rounded-xl">
           <h3 className="font-bold text-white mb-6 text-sm uppercase tracking-wide">Responses Over Time</h3>
           <div className="h-[250px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -156,7 +156,7 @@ export const AnalyticsView: React.FC<{ sponsors: Sponsor[] }> = ({ sponsors }) =
         </motion.div>
 
         {/* Sponsor Engagement */}
-        <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 p-6 rounded-xl">
+        <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 p-4 lg:p-6 rounded-xl">
           <h3 className="font-bold text-white mb-6 text-sm uppercase tracking-wide">Sponsor Activation Engagement</h3>
           <div className="h-[250px] w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -184,7 +184,7 @@ export const AnalyticsView: React.FC<{ sponsors: Sponsor[] }> = ({ sponsors }) =
         </motion.div>
 
         {/* Age Distribution */}
-        <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 p-6 rounded-xl">
+        <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 p-4 lg:p-6 rounded-xl">
           <h3 className="font-bold text-white mb-2 text-sm uppercase tracking-wide">Age Distribution</h3>
           <div className="h-[250px] w-full flex items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">
@@ -213,7 +213,7 @@ export const AnalyticsView: React.FC<{ sponsors: Sponsor[] }> = ({ sponsors }) =
         </motion.div>
 
         {/* Gender Breakdown */}
-        <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 p-6 rounded-xl">
+        <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 p-4 lg:p-6 rounded-xl">
           <h3 className="font-bold text-white mb-2 text-sm uppercase tracking-wide">Gender Breakdown</h3>
           <div className="h-[250px] w-full flex items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">

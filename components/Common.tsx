@@ -118,7 +118,7 @@ export const MetricCard = ({ title, value, change, icon: Icon, color, index }: a
       boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
       borderColor: 'rgba(255, 215, 0, 0.2)'
     }}
-    className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 p-6 rounded-xl transition-colors group relative overflow-hidden"
+    className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 p-4 lg:p-6 rounded-xl transition-colors group relative overflow-hidden"
   >
     <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
       <Icon size={64} className={color} />

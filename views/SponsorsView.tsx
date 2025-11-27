@@ -255,10 +255,10 @@ export const SponsorsView: React.FC<{ sponsors: Sponsor[], setSponsors: React.Di
           </div>
         </motion.div>
 
-        <div className="flex-1 overflow-x-auto pb-4">
+        <div className="flex-1 overflow-x-auto pb-4 -mx-4 px-4 lg:mx-0 lg:px-0">
           <motion.div 
             variants={containerVariants}
-            className="flex flex-col lg:flex-row min-w-full lg:min-w-[1000px] h-full gap-6"
+            className="flex flex-row min-w-full h-full gap-4 lg:gap-6"
           >
             {columns.map(column => {
               const columnSponsors = filteredSponsors.filter(s => s.status === column.id);
@@ -269,7 +269,7 @@ export const SponsorsView: React.FC<{ sponsors: Sponsor[], setSponsors: React.Di
                   key={column.id}
                   variants={itemVariants}
                   data-column-id={column.id}
-                  className="flex-1 min-w-[280px] flex flex-col bg-neutral-900/30 rounded-xl border border-neutral-800/50 relative"
+                  className="w-[85vw] sm:w-[350px] lg:w-auto lg:flex-1 lg:min-w-[280px] flex-shrink-0 flex flex-col bg-neutral-900/30 rounded-xl border border-neutral-800/50 relative snap-center"
                 >
                   <div className={`p-4 border-b-2 ${column.color} bg-neutral-900/80 rounded-t-xl backdrop-blur-sm sticky top-0 z-10`}>
                     <div className="flex justify-between items-center mb-1">

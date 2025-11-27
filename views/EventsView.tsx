@@ -112,7 +112,7 @@ export const EventsView = () => {
                 <span className="ml-2">Melbourne</span>
              </div>
           </div>
-          <div className="flex bg-neutral-900 p-1 rounded-lg border border-neutral-800">
+          <div className="flex bg-neutral-900 p-1 rounded-lg border border-neutral-800 overflow-x-auto max-w-full">
              {[
                { id: 'Map', icon: MapIcon, label: 'Site Map' },
                { id: 'Schedule', icon: Clock3, label: 'Run of Show' },
@@ -121,7 +121,7 @@ export const EventsView = () => {
                <button
                  key={tab.id}
                  onClick={() => setActiveTab(tab.id as any)}
-                 className={`px-4 py-2 rounded-md text-sm font-bold flex items-center transition-all ${
+                 className={`px-4 py-2 rounded-md text-sm font-bold flex items-center transition-all whitespace-nowrap ${
                    activeTab === tab.id 
                      ? 'bg-[#FFD700] text-black shadow-sm' 
                      : 'text-neutral-400 hover:text-white'

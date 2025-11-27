@@ -57,9 +57,7 @@ export default function App() {
       </AnimatePresence>
 
       <aside 
-        className={`fixed top-0 left-0 z-50 h-full w-64 bg-[#0A0A0A] border-r border-neutral-800 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`hidden lg:block fixed top-0 left-0 z-50 h-full w-64 bg-[#0A0A0A] border-r border-neutral-800 transition-transform duration-300 ease-in-out`}
       >
         <div className="p-6 flex items-center justify-between">
           <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setActiveTab('Dashboard')}>
@@ -70,9 +68,6 @@ export default function App() {
               SUMMER<span className="text-[#FFD700]">JAM</span>
             </span>
           </div>
-          <button onClick={() => setSidebarOpen(false)} className="lg:hidden text-neutral-400">
-            <X size={24} />
-          </button>
         </div>
 
         <div className="px-4 py-6 space-y-2">
@@ -93,7 +88,6 @@ export default function App() {
               onClick={() => {
                 if (item !== 'Settings') {
                   setActiveTab(item as ViewState);
-                  setSidebarOpen(false);
                 }
               }}
             />
@@ -115,16 +109,40 @@ export default function App() {
         </div>
       </aside>
 
-      <main className="lg:ml-64 min-h-screen transition-all duration-300 flex flex-col">
+      {/* Mobile Bottom Navigation */}
+      <div className="lg:hidden fixed bottom-0 left-0 z-50 w-full bg-[#0A0A0A] border-t border-neutral-800 pb-safe">
+        <div className="flex justify-around items-center p-2">
+          {['Dashboard', 'Sponsors', 'Pitches', 'Analytics', 'Events'].map((item) => {
+            const Icon = item === 'Dashboard' ? LayoutDashboard :
+                         item === 'Sponsors' ? Users :
+                         item === 'Pitches' ? FileText :
+                         item === 'Analytics' ? BarChart3 :
+                         Activity;
+            const isActive = activeTab === item;
+            return (
+              <button
+                key={item}
+                onClick={() => setActiveTab(item as ViewState)}
+                className={`flex flex-col items-center p-2 rounded-lg transition-colors ${isActive ? 'text-[#FFD700]' : 'text-neutral-500'}`}
+              >
+                <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                <span className="text-[10px] font-medium mt-1">{item}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <main className="lg:ml-64 min-h-screen transition-all duration-300 flex flex-col pb-20 lg:pb-0">
         
-        <header className={`sticky top-0 z-30 px-6 py-4 flex items-center justify-between transition-colors duration-200 ${
+        <header className={`sticky top-0 z-30 px-4 lg:px-6 py-4 flex items-center justify-between transition-colors duration-200 ${
           scrolled ? 'bg-[#0A0A0A]/90 backdrop-blur-md border-b border-neutral-800' : 'bg-transparent'
         }`}>
           <div className="flex items-center lg:hidden">
-            <button onClick={() => setSidebarOpen(true)} className="text-white mr-4">
-              <Menu size={24} />
-            </button>
-            <span className="font-black italic text-lg">SJ OS</span>
+            <div className="w-8 h-8 bg-white text-black rounded-sm flex items-center justify-center font-black italic text-lg border-2 border-[#FFD700] mr-3">
+              SJ
+            </div>
+            <span className="font-black italic text-lg">SUMMER<span className="text-[#FFD700]">JAM</span></span>
           </div>
 
           <div className="hidden lg:flex items-center text-neutral-400 text-sm">
@@ -139,7 +157,7 @@ export default function App() {
           </div>
         </header>
 
-        <div className="flex-1 p-6 lg:p-10 max-w-[1600px] w-full mx-auto">
+        <div className="flex-1 p-4 lg:p-10 max-w-[1600px] w-full mx-auto">
           <AnimatePresence mode="wait">
             {activeTab === 'Dashboard' && (
               <DashboardView 
