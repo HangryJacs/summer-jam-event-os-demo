@@ -157,7 +157,7 @@ export const AnalyticsView: React.FC<{ sponsors: Sponsor[] }> = ({ sponsors }) =
 
         {/* Sponsor Engagement */}
         <motion.div variants={itemVariants} className="bg-neutral-900/50 border border-neutral-800 p-6 rounded-xl">
-          <h3 className="font-bold text-white mb-6 text-sm uppercase tracking-wide">Sponsor Engagement</h3>
+          <h3 className="font-bold text-white mb-6 text-sm uppercase tracking-wide">Sponsor Activation Engagement</h3>
           <div className="h-[250px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={sponsorEngagementData} layout="vertical" margin={{ left: 20 }}>

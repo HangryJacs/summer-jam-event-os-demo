@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Users, Briefcase, Mail, History, Eye, Copy, Check } from 'lucide-react';
+import { X, Users, Briefcase, Mail, History, Eye, Copy, Check, ChevronUp, ChevronDown } from 'lucide-react';
 import { Sponsor } from '../types';
 import { inventoryItems, tiers, presentationHistory } from '../constants';
 
@@ -14,6 +14,8 @@ export const CompanyProfileModal: React.FC<CompanyProfileModalProps> = ({ sponso
   const [activeTab, setActiveTab] = useState<'Overview' | 'Presentations' | 'Deal Calculator'>('Overview');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
+  const [discountType, setDiscountType] = useState<'percentage' | 'fixed'>('percentage');
+  const [discountValue, setDiscountValue] = useState<number>(0);
 
   const toggleItem = (id: string) => {
     setSelectedItems(prev => 
@@ -32,6 +34,12 @@ export const CompanyProfileModal: React.FC<CompanyProfileModalProps> = ({ sponso
     const item = inventoryItems.find(i => i.id === id);
     return sum + (item ? item.price : 0);
   }, 0);
+
+  const discountAmount = discountType === 'percentage' 
+    ? totalDealValue * (discountValue / 100) 
+    : discountValue;
+    
+  const finalDealValue = Math.max(0, totalDealValue - discountAmount);
 
   return createPortal(
     <motion.div 
@@ -322,11 +330,70 @@ export const CompanyProfileModal: React.FC<CompanyProfileModalProps> = ({ sponso
                     </div>
 
                     <div className="pt-4 border-t border-neutral-800">
+                      {/* Discount Block */}
+                      <div className="mb-6">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-neutral-400 text-xs font-bold uppercase">Discount</span>
+                          <div className="flex bg-neutral-800 rounded-lg p-1">
+                            <button 
+                              onClick={() => setDiscountType('percentage')}
+                              className={`px-2 py-1 rounded text-xs font-bold transition-colors ${discountType === 'percentage' ? 'bg-neutral-700 text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+                            >
+                              %
+                            </button>
+                            <button 
+                              onClick={() => setDiscountType('fixed')}
+                              className={`px-2 py-1 rounded text-xs font-bold transition-colors ${discountType === 'fixed' ? 'bg-neutral-700 text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+                            >
+                              $
+                            </button>
+                          </div>
+                        </div>
+                        <div className={`flex items-center w-full bg-neutral-800 border rounded-lg transition-colors focus-within:border-[#FFD700] ${discountValue > 0 ? 'border-[#FFD700]' : 'border-neutral-700'}`}>
+                          {discountType === 'fixed' && (
+                            <span className="pl-3 text-neutral-500 text-sm font-bold">$</span>
+                          )}
+                          <input 
+                            type="number" 
+                            value={discountValue || ''}
+                            onChange={(e) => setDiscountValue(Number(e.target.value))}
+                            className="flex-1 bg-transparent border-none py-2 pl-3 text-white text-sm focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                            placeholder="0"
+                          />
+                          <div className="flex flex-col gap-0.5 px-2">
+                            <button 
+                              onClick={() => setDiscountValue(v => v + 1)}
+                              className="text-neutral-400 hover:text-white transition-colors"
+                            >
+                              <ChevronUp size={12} strokeWidth={3} />
+                            </button>
+                            <button 
+                              onClick={() => setDiscountValue(v => Math.max(0, v - 1))}
+                              className="text-neutral-400 hover:text-white transition-colors"
+                            >
+                              <ChevronDown size={12} strokeWidth={3} />
+                            </button>
+                          </div>
+                          {discountType === 'percentage' && (
+                            <div className="pr-3 text-neutral-500 text-sm font-bold border-l border-neutral-700 pl-3 py-1">
+                              %
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
                       <div className="flex justify-between items-end mb-6">
                         <span className="text-neutral-400 text-sm font-bold uppercase">Total Value</span>
-                        <span className="text-3xl font-black text-[#FFD700] tracking-tight">
-                          ${(totalDealValue / 1000).toFixed(0)}k
-                        </span>
+                        <div className="text-right">
+                           {discountValue > 0 && (
+                             <div className="text-neutral-500 text-sm line-through decoration-neutral-500 mb-1">
+                               ${(totalDealValue / 1000).toFixed(1)}k
+                             </div>
+                           )}
+                           <span className="text-3xl font-black text-[#FFD700] tracking-tight">
+                             ${(finalDealValue / 1000).toFixed(1)}k
+                           </span>
+                        </div>
                       </div>
                       <button className="w-full bg-[#FFD700] hover:bg-[#E6C200] text-black font-bold py-3 rounded-lg transition-colors mb-3 shadow-lg shadow-[#FFD700]/10">
                         Update Deal Value

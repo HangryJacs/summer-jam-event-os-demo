@@ -175,6 +175,10 @@ export const SponsorsView: React.FC<{ sponsors: Sponsor[], setSponsors: React.Di
     .filter(s => ['Prospecting', 'Negotiating', 'Contracted'].includes(s.status))
     .reduce((acc, curr) => acc + curr.value, 0);
 
+  const deliveredValue = filteredSponsors
+    .filter(s => s.status === 'Delivered')
+    .reduce((acc, curr) => acc + curr.value, 0);
+
   return (
     <LayoutGroup>
       <motion.div 
@@ -234,6 +238,12 @@ export const SponsorsView: React.FC<{ sponsors: Sponsor[], setSponsors: React.Di
                 <CountUp value={`$${totalValue}`} />
               </span>
             </div>
+            <div className="flex flex-col items-end">
+              <span className="text-xs text-neutral-500 uppercase tracking-wider">Delivered Value</span>
+              <span className="text-2xl font-black text-emerald-500 italic">
+                <CountUp value={`$${deliveredValue}`} />
+              </span>
+            </div>
             <motion.button 
               whileHover={buttonHover}
               whileTap={buttonTap}
@@ -268,7 +278,7 @@ export const SponsorsView: React.FC<{ sponsors: Sponsor[], setSponsors: React.Di
                         {columnSponsors.length}
                       </span>
                     </div>
-                    <div className="text-xs text-neutral-500 font-mono">
+                    <div className="text-sm font-bold text-[#FFD700] font-mono">
                       ${(columnValue / 1000).toFixed(0)}k
                     </div>
                   </div>
